@@ -6,14 +6,18 @@
 // as explained in the cypress docs
 // https://docs.cypress.io/api/plugins/preprocessors-api.html#Examples
 
-// /* eslint-disable import/no-extraneous-dependencies, global-require */
-// const webpack = require('@cypress/webpack-preprocessor')
+const webpackPreprocessor = require("@cypress/webpack-preprocessor");
+const webpackOptions = require("find-webpack").getWebpackOptions();
+
 
 module.exports = (on, config) => {
-  // on('file:preprocessor', webpack({
-  //  webpackOptions: require('@vue/cli-service/webpack.config'),
-  //  watchOptions: {}
-  // }))
+  
+  on(
+    "file:preprocessor",
+    webpackPreprocessor({ webpackOptions })
+  );
+
+  require("@cypress/code-coverage/task")(on, config);
 
   return Object.assign({}, config, {
     fixturesFolder: "tests/e2e/fixtures",

@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <h3>{{ noMsg }}</h3>
     <p>
       For a guide and recipes on how to configure / customize this project,<br />
       check out the
@@ -108,11 +109,15 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 @Component
 export default class HelloWorld extends Vue {
   @Prop() private msg!: string;
+
+  get noMsg(): string {
+    return this.msg ? "Hello World" : "Please set `msg` prop!";
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style scoped>
 h3 {
   margin: 40px 0 0;
 }
